@@ -6,14 +6,29 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { routes } from "./router/routes";
 
+// Import components
+import App from './components/App.vue';
+
+const router = createRouter({
+    routes,
+    history: createWebHistory(),
+    scrollBehavior(to, from, savedPosition) {
+        // Always scroll to top
+        return { top: 0 }
+    },
+});
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+// const app = createApp({});
+const app = createApp(App);
+app.use(router);
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
