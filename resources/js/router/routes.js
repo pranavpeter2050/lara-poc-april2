@@ -25,4 +25,9 @@ export const routes = [
         name: 'edit-movie',
         component: () => import('./views/movies/edit.vue')
     },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('./views/404error.vue')
+    }
 ]
