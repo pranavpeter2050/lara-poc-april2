@@ -1,36 +1,260 @@
 <template>
+    <!-- Begin page -->
+    <div class="wrapper">
 
-	<div class="container">
-		<header>
-			<div class="px-3 py-2 bg-dark text-white">
-				<div class="container">
-					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-						<router-link to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-							<img src="https://laraveltuts.com/wp-content/uploads/2022/06/logo-dark.webp" style="height:60px;"/>
-						</router-link>
-						<ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-							<li>
-									<router-link to="/" class="nav-link text-white" style="text-decoration: none; color: white;"><svg class="bi d-block mx-auto mb-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 21q-.625 0-1.063-.438T3 19.5v-1.9l4-3.55V21H4.5ZM8 21v-4h8v4H8Zm9 0v-8.2L12.725 9l3.025-2.675l4.75 4.225q.25.225.375.513t.125.612V19.5q0 .625-.438 1.063T19.5 21H17ZM3 16.25v-4.575q0-.325.125-.625t.375-.5L11 3.9q.2-.2.463-.287T12 3.525q.275 0 .537.088T13 3.9l2 1.775L3 16.25Z"/></svg>Home</router-link>
-							</li>
-							<li>
-									<router-link to="/products/create" class="nav-link text-white" style="text-decoration: none; color: white;"><svg class="bi d-block mx-auto mb-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7 9h10V7H7v2Zm11 14q-2.075 0-3.538-1.463T13 18q0-2.075 1.463-3.538T18 13q2.075 0 3.538 1.463T23 18q0 2.075-1.463 3.538T18 23Zm-.5-2h1v-2.5H21v-1h-2.5V15h-1v2.5H15v1h2.5V21ZM3 21V3h18v8.7q-.725-.35-1.463-.525T18 11q-.275 0-.513.013t-.487.062V11H7v2h6.1q-.425.425-.787.925T11.675 15H7v2h4.075q-.05.25-.063.488T11 18q0 .825.15 1.538T11.675 21H3Z"/></svg>Add Product</router-link>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</header>
-		<div class="card">
-			<div class="card-body">
-				<div class="container-fluid">
-					<router-view></router-view>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
+      <!-- ========== Topbar Start ========== -->
+      <div class="navbar-custom topnav-navbar">
+        <div class="container-fluid detached-nav">
+
+          <!-- Topbar Logo -->
+          <div class="logo-topbar">
+            <!-- Logo light -->
+            <a href="index.html" class="logo-light">
+              <span class="logo-lg">
+                <img src="assets/images/logo.png" alt="logo" height="22">
+              </span>
+              <span class="logo-sm">
+                <img src="assets/images/logo-sm.png" alt="small logo" height="22">
+              </span>
+            </a>
+
+            <!-- Logo Dark -->
+            <a href="index.html" class="logo-dark">
+              <span class="logo-lg">
+                <img src="assets/images/logo-dark.png" alt="dark logo" height="22">
+              </span>
+              <span class="logo-sm">
+                <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22">
+              </span>
+            </a>
+          </div>
+
+          <!-- Sidebar Menu Toggle Button -->
+          <button class="button-toggle-menu">
+            <i class="mdi mdi-menu"></i>
+          </button>
+
+          <!-- Horizontal Menu Toggle Button -->
+          <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+            <div class="lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+
+          <ul class="list-unstyled topbar-menu float-end mb-0">
+
+            <li class="dropdown notification-list topbar-dropdown">
+              <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <img src="assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="12">
+                <span class="align-middle d-none d-lg-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                </a>
+
+              </div>
+            </li>
+
+            <li class="notification-list d-none d-sm-inline-block">
+              <a class="nav-link" href="javascript:void(0)" id="light-dark-mode">
+                <i class="ri-moon-line noti-icon"></i>
+              </a>
+            </li>
+
+            <li class="dropdown notification-list">
+              <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                      aria-expanded="false">
+                <span class="account-user-avatar">
+            <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                </span>
+                <span>
+            <span class="account-user-name">Dominic Keller</span>
+            <span class="account-position">Founder</span>
+                </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                <!-- item-->
+                <div class=" dropdown-header noti-title">
+                  <h6 class="text-overflow m-0">Welcome !</h6>
+                </div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <i class="mdi mdi-account-circle me-1"></i>
+                  <span>My Account</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <i class="mdi mdi-account-edit me-1"></i>
+                  <span>Settings</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <i class="mdi mdi-lifebuoy me-1"></i>
+                  <span>Support</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <i class="mdi mdi-lock-outline me-1"></i>
+                  <span>Lock Screen</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <i class="mdi mdi-logout me-1"></i>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <!-- ========== Topbar End ========== -->
+
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="leftside-menu">
+
+        <!-- Logo Light -->
+        <a href="index.html" class="logo logo-light">
+          <span class="logo-lg">
+            <img src="assets/images/logo.png" alt="logo" height="22">
+          </span>
+          <span class="logo-sm">
+            <img src="assets/images/logo-sm.png" alt="small logo" height="22">
+          </span>
+        </a>
+
+        <!-- Logo Dark -->
+        <a href="index.html" class="logo logo-dark">
+          <span class="logo-lg">
+            <img src="assets/images/logo-dark.png" alt="dark logo" height="22">
+          </span>
+          <span class="logo-sm">
+            <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22">
+          </span>
+        </a>
+
+          <!-- Sidebar Hover Menu Toggle Button -->
+          <button type="button" class="bg-transparent button-sm-hover p-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Show Full Sidebar">
+            <i class="ri-checkbox-blank-circle-line align-middle"></i>
+          </button>
+
+        <!-- Sidebar -left -->
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+          <!--- Sidemenu -->
+          <ul class="side-nav">
+
+            <li class="side-nav-item">
+              <router-link to="/movies" class="side-nav-link">
+                <i class="mdi mdi-movie-open-outline"></i>
+                <span> Movies </span>
+              </router-link>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="/#" class="side-nav-link">
+                <i class="mdi mdi-account"></i>
+                <span> Users </span>
+              </a>
+            </li>
+
+          </ul>
+          <!--- End Sidemenu -->
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- ========== Left Sidebar End ========== -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <div class="content">
+
+          <!-- Start Content-->
+          <slot />
+          <!-- container -->
+
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                {{ new Date().getFullYear() }} - {{ new Date().getFullYear() + 1 }} © Hyper - Coderthemes.com
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-end footer-links d-none d-md-block">
+                  <a href="javascript: void(0);">About</a>
+                  <a href="javascript: void(0);">Support</a>
+                  <a href="javascript: void(0);">Contact Us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+
+    </div>
+    <!-- END wrapper -->
+  </template>
 <script>
 export default {
-	name: 'App'
+  name: 'App',
+  data() {
+    return {
+      columns: [{
+        label: "Movie Name",
+        key: "movie_name",
+        sortable: true
+      }, {
+        label: "Producing Studio",
+        key: "prod_studio",
+        sortable: true,
+      }, {
+        label: "Year of Release",
+         key: "yor",
+        sortable: true,
+      }],
+      sortKey: "",
+      sortOrder: "desc",
+      isWriteAllowed: true,
+    };
+  }
 }
 </script>
