@@ -2,21 +2,26 @@
 export const routes = [
     {
         path: '/',
-        // redirect: '/login'
-        redirect: '/movie-vue'
+        redirect: '/login'
+        // redirect: '/movie-vue'
     },
     {
-        path: '/movie-vue',
+        path: '/login',
+        name: 'login',
+        component: () => import('./views/account/login.vue')
+    },
+    {
+        path: '/movies',
         name: 'index-movies',
         component: () => import('./views/movies/index.vue')
     },
     {
-        path: '/new-movie-vue',
+        path: '/new-movie',
         name: 'new-movie',
         component: () => import('./views/movies/edit.vue')
     },
     {
-        path: '/edit-movie-vue/:id',
+        path: '/edit-movie/:id',
         name: 'edit-movie',
         component: () => import('./views/movies/edit.vue')
     },
