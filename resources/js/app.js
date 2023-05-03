@@ -10,7 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from "./router/routes";
 
 // Import components
-import App from './components/App.vue';
+// import App from './components/App.vue';
 
 const router = createRouter({
     routes,
@@ -27,7 +27,7 @@ const router = createRouter({
  */
 
 // const app = createApp({});
-const app = createApp(App);
+const app = createApp({});
 app.use(router);
 
 import ExampleComponent from './components/ExampleComponent.vue';
@@ -51,4 +51,5 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
+// app.mount('#app');
+window.vm = app.mount("#app");
