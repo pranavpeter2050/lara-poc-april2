@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Movies;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MovieController extends Controller
 {
@@ -14,8 +15,10 @@ class MovieController extends Controller
     */
     public function index()
     {
+        // $movies = Movies::orderBy('id','asc')->paginate(5);
+        // return view('movies.index', compact('movies'));
         $movies = Movies::orderBy('id','asc')->paginate(5);
-        return view('movies.index', compact('movies'));
+        return $movies;
     }
 
     /**
@@ -54,12 +57,17 @@ class MovieController extends Controller
     /**
     * Display the specified resource.
     *
-    * @param  \App\Models\Movies  $movie
+    * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function show(Movies $movie)
+    public function show($id)
     {
-        return view('movies.show', compact('movie'));
+        // return view('movies.show', compact('movie'));
+        // $movie_id = Crypt::decrypt($id);
+        $movie_id = $id;
+        $movies = Movies::findOrFail($movie_id);
+
+        return $movies;
     }
 
     /**
@@ -82,6 +90,7 @@ class MovieController extends Controller
     */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $request->validate([
             'name' => 'required',
             'studio' => 'required',
@@ -94,7 +103,8 @@ class MovieController extends Controller
         $movie->year_of_release = $request['yor'];
         $movie->save();
 
-        return redirect()->route('movies.index')->with('success','Movies Has Been updated successfully');
+        // return redirect()->route('movies.index')->with('success','Movies Has Been updated successfully');
+        return $movie;
     }
 
     /**
@@ -105,8 +115,9 @@ class MovieController extends Controller
     */
     public function destroy($id)
     {
-        $vehicle = Movies::findOrFail($id);
-        $vehicle->delete();
-        return redirect()->route('movies.index')->with('success','Movies has been deleted successfully');
+        $movie = Movies::findOrFail($id);
+        $movie->delete();
+        // return redirect()->route('movies.index')->with('success','Movies has been deleted successfully');
+        return response()->json('Movie deleted successfully!');
     }
 }
