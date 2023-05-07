@@ -8,6 +8,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from "./router/routes";
+import axios from 'axios';
 
 // Import components
 // import App from './components/App.vue';
@@ -28,10 +29,7 @@ const router = createRouter({
 
 // const app = createApp({});
 const app = createApp({});
-app.use(router);
-
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+app.use(router, axios);
 
 /**
  * The following block of code may be used to automatically register your
