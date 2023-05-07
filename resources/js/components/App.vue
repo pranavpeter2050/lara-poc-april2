@@ -11,20 +11,20 @@
             <!-- Logo light -->
             <a href="index.html" class="logo-light">
               <span class="logo-lg">
-                <img src="assets/images/logo.png" alt="logo" height="22">
+                <img src="/assets/images/logo.png" alt="logo" height="22">
               </span>
               <span class="logo-sm">
-                <img src="assets/images/logo-sm.png" alt="small logo" height="22">
+                <img src="/assets/images/logo-sm.png" alt="small logo" height="22">
               </span>
             </a>
 
             <!-- Logo Dark -->
             <a href="index.html" class="logo-dark">
               <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="dark logo" height="22">
+                <img src="/assets/images/logo-dark.png" alt="dark logo" height="22">
               </span>
               <span class="logo-sm">
-                <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22">
+                <img src="/assets/images/logo-dark-sm.png" alt="small logo" height="22">
               </span>
             </a>
           </div>
@@ -47,29 +47,29 @@
 
             <li class="dropdown notification-list topbar-dropdown">
               <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="12">
+                <img src="/assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="12">
                 <span class="align-middle d-none d-lg-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                  <img src="/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
                 </a>
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                  <img src="/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
                 </a>
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                  <img src="/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
                 </a>
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                  <img src="/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
                 </a>
 
               </div>
@@ -85,7 +85,7 @@
               <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                       aria-expanded="false">
                 <span class="account-user-avatar">
-            <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+            <img src="/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                 </span>
                 <span>
             <span class="account-user-name">Dominic Keller</span>
@@ -141,20 +141,20 @@
         <!-- Logo Light -->
         <a href="index.html" class="logo logo-light">
           <span class="logo-lg">
-            <img src="assets/images/logo.png" alt="logo" height="22">
+            <img src="/assets/images/logo.png" alt="logo" height="22">
           </span>
           <span class="logo-sm">
-            <img src="assets/images/logo-sm.png" alt="small logo" height="22">
+            <img src="/assets/images/logo-sm.png" alt="small logo" height="22">
           </span>
         </a>
 
         <!-- Logo Dark -->
         <a href="index.html" class="logo logo-dark">
           <span class="logo-lg">
-            <img src="assets/images/logo-dark.png" alt="dark logo" height="22">
+            <img src="/assets/images/logo-dark.png" alt="dark logo" height="22">
           </span>
           <span class="logo-sm">
-            <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22">
+            <img src="/assets/images/logo-dark-sm.png" alt="small logo" height="22">
           </span>
         </a>
 
