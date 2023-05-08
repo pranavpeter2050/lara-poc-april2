@@ -2,13 +2,18 @@
 export const routes = [
     {
         path: '/',
-        redirect: '/login'
+        redirect: '/movies'
         // redirect: '/movie-vue'
     },
     {
         path: '/login',
         name: 'login',
         component: () => import('./views/account/login.vue')
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('./views/account/register.vue')
     },
     {
         path: '/movies',
