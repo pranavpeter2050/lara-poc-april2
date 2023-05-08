@@ -9,6 +9,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from "./router/routes";
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 // Import components
 // import App from './components/App.vue';
@@ -21,6 +22,20 @@ const router = createRouter({
         return { top: 0 }
     },
 });
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  window.Swal = Swal;
+  window.Toast = Toast;
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
