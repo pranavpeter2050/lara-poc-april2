@@ -9,7 +9,7 @@
           <!-- Topbar Logo -->
           <div class="logo-topbar">
             <!-- Logo light -->
-            <a href="index.html" class="logo-light">
+            <a href="#" class="logo-light">
               <span class="logo-lg">
                 <img src="/assets/images/logo.png" alt="logo" height="22">
               </span>
@@ -19,7 +19,7 @@
             </a>
 
             <!-- Logo Dark -->
-            <a href="index.html" class="logo-dark">
+            <a href="#" class="logo-dark">
               <span class="logo-lg">
                 <img src="/assets/images/logo-dark.png" alt="dark logo" height="22">
               </span>
@@ -28,20 +28,6 @@
               </span>
             </a>
           </div>
-
-          <!-- Sidebar Menu Toggle Button -->
-          <button class="button-toggle-menu">
-            <i class="mdi mdi-menu"></i>
-          </button>
-
-          <!-- Horizontal Menu Toggle Button -->
-          <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
-            <div class="lines">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </button>
 
           <ul class="list-unstyled topbar-menu float-end mb-0">
 
@@ -139,7 +125,7 @@
       <div class="leftside-menu">
 
         <!-- Logo Light -->
-        <a href="index.html" class="logo logo-light">
+        <a href="#" class="logo logo-light">
           <span class="logo-lg">
             <img src="/assets/images/logo.png" alt="logo" height="22">
           </span>
@@ -149,7 +135,7 @@
         </a>
 
         <!-- Logo Dark -->
-        <a href="index.html" class="logo logo-dark">
+        <a href="#" class="logo logo-dark">
           <span class="logo-lg">
             <img src="/assets/images/logo-dark.png" alt="dark logo" height="22">
           </span>
@@ -176,12 +162,12 @@
               </router-link>
             </li>
 
-            <li class="side-nav-item">
+            <!-- <li class="side-nav-item">
               <a href="/#" class="side-nav-link">
                 <i class="mdi mdi-account"></i>
                 <span> Users </span>
               </a>
-            </li>
+            </li> -->
 
           </ul>
           <!--- End Sidemenu -->
