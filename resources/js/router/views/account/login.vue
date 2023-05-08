@@ -1,3 +1,26 @@
+<script>
+export default {
+  name: 'Login',
+  data() {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      showError: false
+    };
+  },
+  methods: {
+    loginSubmit() {
+      axios.get('/sanctum/csrf-cookie').then(response => {
+        console.log(response)
+      });
+    }
+
+  }
+}
+</script>
+
 <template>
   <div class="authentication-bg">
       <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
@@ -9,7 +32,7 @@
                               <!-- Logo -->
                               <div class="card-header pt-4 pb-4 text-center bg-primary">
                                       <a href="#">
-                                              <span><img src="assets/images/logo.png" alt="logo" height="22"></span>
+                                              <span><img src="/assets/images/logo.png" alt="logo" height="22"></span>
                                       </a>
                               </div>
 
@@ -20,28 +43,21 @@
                                               <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
                                       </div>
 
-                                      <form action="#">
+                                      <form action="#" @submit.prevent="loginSubmit">
 
                                               <div class="mb-3">
                                                       <label for="emailaddress" class="form-label">Email address</label>
-                                                      <input class="form-control" type="email" id="emailaddress" required placeholder="Enter your email">
+                                                      <input v-model="form.email" class="form-control" type="email" id="emailaddress" required placeholder="Enter your email">
                                               </div>
 
                                               <div class="mb-3">
                                                       <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a>
                                                       <label for="password" class="form-label">Password</label>
                                                       <div class="input-group input-group-merge">
-                                                              <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                                                              <input v-model="form.password" type="password" id="password" class="form-control" placeholder="Enter your password">
                                                               <div class="input-group-text" data-password="false">
                                                                       <span class="password-eye"></span>
                                                               </div>
-                                                      </div>
-                                              </div>
-
-                                              <div class="mb-3 mb-3">
-                                                      <div class="form-check">
-                                                              <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
-                                                              <label class="form-check-label" for="checkbox-signin">Remember me</label>
                                                       </div>
                                               </div>
 
@@ -56,7 +72,7 @@
 
                       <div class="row mt-3">
                           <div class="col-12 text-center">
-                              <p class="text-muted">Don't have an account? <a href="pages-register.html" class="text-muted ms-1"><b>Sign Up</b></a></p>
+                              <p class="text-muted">Don't have an account? <router-link to="/register" class="text-muted ms-1"><b>Sign Up</b></router-link></p>
                           </div> <!-- end col -->
                       </div>
                       <!-- end row -->
@@ -70,3 +86,11 @@
       <!-- end page -->
   </div>
 </template>
+
+<style>
+.authentication-bg {
+  background-image: url("/assets/images/bg-pattern-light.svg");
+  background-size: cover;
+  background-position: center;
+}
+</style>
