@@ -1,6 +1,8 @@
 <script>
 import Layout from "../../../components/App.vue";
 import moment from 'moment';
+import { useVuelidate } from '@vuelidate/core';
+import { required, helpers } from '@vuelidate/validators';
 export default {
   page: {
     title: "Add Movie",
@@ -8,11 +10,15 @@ export default {
   components: {
     Layout,
   },
+  setup () {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
       title: "Add Movie",
       editmode: false,
       isActive: true,
+      submitted: false,
       id: this.$route.params.id,
       movieId: null,
       movieDataForm: new FormData(),
@@ -20,8 +26,22 @@ export default {
         name: "",
         studio: "",
         year_of_release: ""
-      }
+      },
+      errors: [],
     };
+  },
+  validations: {
+    movieData: {
+      name: {
+        required: helpers.withMessage("Name is required", required),
+      },
+      studio: {
+        required: helpers.withMessage("Name of Production Studio is required", required),
+      },
+      year_of_release: {
+        required: helpers.withMessage("Release Date is required", required),
+      },
+    },
   },
   mounted() {
     // console.log("$route-param-id: ", this.$route.params.id)
@@ -65,12 +85,19 @@ export default {
           console.error(error);
         });
     },
-    movieInsert() {
+    async movieInsert() {
+      this.submitted = true;
       this.movieDataForm.append("name", this.movieData.name);
       this.movieDataForm.append("studio", this.movieData.studio);
       this.movieDataForm.append("yor", this.movieData.year_of_release);
 
+      const result = await this.v$.$validate()
+      if (!result) {
+        // notify form is invalid
+        return;
+      }
       this.isActive = false;
+      this.submitted = false;
       axios
         .post("/api/movies", this.movieDataForm, {
           headers: {
@@ -91,11 +118,17 @@ export default {
           console.error(error);
         });
     },
-    movieUpdate() {
+    async movieUpdate() {
+      this.submitted = true;
       let payload = this.movieData
       payload.yor = this.movieData.year_of_release
-
+      const result = await this.v$.$validate()
+      if (!result) {
+        // notify form is invalid
+        return;
+      }
       this.isActive = false;
+      this.submitted = false;
       axios
         .patch("/api/movies/" + this.movieId, JSON.stringify(payload), {
           headers: {
@@ -143,9 +176,19 @@ export default {
                     v-model="movieData.name"
                     id="movieName"
                     class="form-control"
+                    :class="{ 'is-invalid': submitted && v$.movieData.name.$error }"
                     placeholder="Movie name"
                     type="text"
                   >
+                  <div
+                    class="invalid-feedback"
+                    v-for="(error, index) of v$.movieData.name.$errors"
+                    :key="index"
+                    autocomplete="off">
+                    <div class="error-msg">
+                      {{ error.$message }}
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="prodStudio" class="form-label">Production Studio</label>
@@ -153,9 +196,19 @@ export default {
                     v-model="movieData.studio"
                     id="prodStudio"
                     class="form-control"
+                    :class="{ 'is-invalid': submitted && v$.movieData.studio.$error }"
                     placeholder="Production Studio"
                     type="text"
                   >
+                  <div
+                    class="invalid-feedback"
+                    v-for="(error, index) of v$.movieData.studio.$errors"
+                    :key="index"
+                    autocomplete="off">
+                    <div class="error-msg">
+                      {{ error.$message }}
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="yor" class="form-label">Year of Release</label>
@@ -163,9 +216,19 @@ export default {
                     v-model="movieData.year_of_release"
                     id="yor"
                     class="form-control"
+                    :class="{ 'is-invalid': submitted && v$.movieData.year_of_release.$error }"
                     placeholder="Year of Release"
                     type="date"
                   >
+                  <div
+                    class="invalid-feedback"
+                    v-for="(error, index) of v$.movieData.year_of_release.$errors"
+                    :key="index"
+                    autocomplete="off">
+                    <div class="error-msg">
+                      {{ error.$message }}
+                    </div>
+                  </div>
                 </div>
                 <div class="bttn-wrappr">
                   <button
