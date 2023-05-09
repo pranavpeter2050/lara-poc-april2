@@ -9,7 +9,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from "./router/routes";
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 // Import components
 // import App from './components/App.vue';
