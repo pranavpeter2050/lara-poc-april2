@@ -9,7 +9,7 @@ export default {
   },
   data() {
     return {
-      title: "Movies Index",
+      title: "Index",
       isWriteAllowed: true,
       moviesList: []
     };
@@ -27,28 +27,43 @@ export default {
           },
         })
         .then((response) => {
-          // console.log(response.data.data)
           this.moviesList = response.data.data;
         });
-        // console.log("fetchmovies")
     },
     deleteMovie(movieId) {
-      // console.log("delete-movie-id: ", movieId)
-      axios
-        .delete("/api/movies/" + movieId, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
+      Swal.fire({
+        text: "Are you sure you want to delete this?",
+        showCancelButton: true,
+        confirmButtonColor: "#ff5b5b",
+        cancelButtonColor: "#a1a9b1",
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        // Send request to the server
+        if (result.value) {
+          axios
+            .delete("/api/movies/" + movieId, {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            })
+            .then((response) => {
+              Toast.fire({
+                icon: "success",
+                title: "Movie has been deleted.",
+              });
 
-          this.fetchMovies()
-        })
-        .catch(error => {
-          console.error(error);
-        });
+              this.fetchMovies()
+            })
+            .catch(error => {
+              Toast.fire({
+                icon: "error",
+                title: "Some error occured! Please try again",
+              });
+            });
+        }
+      });
     }
   }
 };
@@ -58,7 +73,7 @@ export default {
     <!-- Start Content-->
     <div class="container-fluid">
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-10">
           <div class="page-title-box">
             <h4 class="page-title">{{ title }}</h4>

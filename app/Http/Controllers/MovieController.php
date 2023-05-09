@@ -60,7 +60,6 @@ class MovieController extends Controller
     */
     public function update(Request $request, $id)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required',
             'studio' => 'required',

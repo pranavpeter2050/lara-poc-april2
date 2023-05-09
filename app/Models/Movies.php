@@ -24,7 +24,6 @@ class Movies extends Model
 
     public static function fetchMovie($id) {
 
-        // $movie_id = Crypt::decrypt($id);
         $movie_id = $id;
         $movie = Movies::findOrFail($movie_id);
 

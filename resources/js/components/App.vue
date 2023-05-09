@@ -117,6 +117,10 @@
             </li>
           </ul>
 
+          <div class="main-title-wrappr">
+            <h1 class="display-6 pt-2">MoviesDB</h1>
+          </div>
+
         </div>
       </div>
       <!-- ========== Topbar End ========== -->
@@ -224,22 +228,7 @@ export default {
   name: 'App',
   data() {
     return {
-      columns: [{
-        label: "Movie Name",
-        key: "movie_name",
-        sortable: true
-      }, {
-        label: "Producing Studio",
-        key: "prod_studio",
-        sortable: true,
-      }, {
-        label: "Year of Release",
-         key: "yor",
-        sortable: true,
-      }],
-      sortKey: "",
-      sortOrder: "desc",
-      isWriteAllowed: true,
+      isDarkMode: false,
     };
   }
 }

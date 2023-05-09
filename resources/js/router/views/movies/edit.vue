@@ -66,11 +66,11 @@ export default {
         });
     },
     movieInsert() {
-      // console.log("movie-save-form-submit")
       this.movieDataForm.append("name", this.movieData.name);
       this.movieDataForm.append("studio", this.movieData.studio);
       this.movieDataForm.append("yor", this.movieData.year_of_release);
 
+      this.isActive = false;
       axios
         .post("/api/movies", this.movieDataForm, {
           headers: {
@@ -79,7 +79,11 @@ export default {
           },
         })
         .then(response => {
-          console.log(response.data);
+          Toast.fire({
+            icon: "success",
+            title: "Movie added successfully!",
+          });
+          this.isActive = true;
 
           this.$router.push({ path: "/movies" });
         })
@@ -88,10 +92,10 @@ export default {
         });
     },
     movieUpdate() {
-      // console.log("movie-update-form-submit")
       let payload = this.movieData
       payload.yor = this.movieData.year_of_release
 
+      this.isActive = false;
       axios
         .patch("/api/movies/" + this.movieId, JSON.stringify(payload), {
           headers: {
@@ -100,7 +104,11 @@ export default {
           },
         })
         .then(response => {
-          console.log(response.data);
+          Toast.fire({
+            icon: "success",
+            title: "Movie updated successfully!",
+          });
+          this.isActive = true;
 
           this.$router.push({ path: "/movies" });
         })
@@ -116,7 +124,7 @@ export default {
     <!-- Start Content-->
     <div class="container-fluid">
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-12">
           <div class="page-title-box">
             <h4 class="page-title">{{ title }}</h4>
@@ -127,9 +135,6 @@ export default {
       <div class="row">
         <div class="col-8">
           <div class="card">
-            <!-- <div class="card-header bg-light">
-              Quote
-            </div> -->
             <div class="card-body">
               <form @submit.prevent="editmode ? movieUpdate() : movieInsert()">
                 <div class="mb-3">
@@ -141,8 +146,6 @@ export default {
                     placeholder="Movie name"
                     type="text"
                   >
-                  <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Movie name">
-                  <small id="emailHelp" class="form-text text-muted">Enter name o the movie here.</small> -->
                 </div>
                 <div class="mb-3">
                   <label for="prodStudio" class="form-label">Production Studio</label>
@@ -174,10 +177,10 @@ export default {
                     Save
                   </button>
                   <button
-                    v-show="editmode"
-                    class="btn btn-primary me-1 btn-sm"
-                    type="submit"
-                    :disabled="!isActive"
+                  class="btn btn-primary me-1 btn-sm"
+                  type="submit"
+                  :disabled="!isActive"
+                  v-show="editmode"
                   >
                     Update
                   </button>
