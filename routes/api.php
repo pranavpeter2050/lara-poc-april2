@@ -15,9 +15,19 @@ use App\Http\Controllers\MovieController;
 |
 */
 
-Route::apiResource('/movies', MovieController::class);
+// Route::apiResource('/movies', MovieController::class);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
+
+Route::group(['middleware' => 'jwt.verify',], function () {
+
+    Route::get('getuser', 'AuthController@getuser');
+    Route::apiResource('/movies', MovieController::class);
+
 });
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
