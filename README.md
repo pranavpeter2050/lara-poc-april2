@@ -31,6 +31,12 @@ Add the service provider to the providers array in the `config/app.php` config f
 ]
 ```
 
+### Create "jwt.verify" middleware
+
+```bash
+php artisan make:middleware JWTMiddleware
+```
+
 ### Publish the config
 
 Run the following command to publish the package config file:
