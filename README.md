@@ -31,12 +31,6 @@ Add the service provider to the providers array in the `config/app.php` config f
 ]
 ```
 
-### Create "jwt.verify" middleware
-
-```bash
-php artisan make:middleware JWTMiddleware
-```
-
 ### Publish the config
 
 Run the following command to publish the package config file:
@@ -58,6 +52,27 @@ php artisan jwt:secret
 This will update your `.env` file with something like `JWT_SECRET=foobar`
 
 It is the key that will be used to sign your tokens. How that happens exactly will depend on the algorithm that you choose to use.
+
+
+### Create "jwt.verify" middleware
+
+```bash
+php artisan make:middleware JWTMiddleware
+```
+
+### Register JWTMiddleware in `app/Http/Kernel.php`
+
+```php
+protected $middlewareAliases = [
+    ...
+
+    'jwt.verify' => \App\Http\Middleware\JWTMiddleware::class,
+];
+```
+
+## Authentication related changes on Vue side of the project
+
+Install Vuex by running `npm install vuex`,
 
 ## Resources
 
