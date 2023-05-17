@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use JWTAuth;
 
 class AuthController extends Controller
 {
@@ -34,7 +35,8 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth()->attempt($validator->validated()) ) {
+        $token = JWTAuth::attempt($validator->validated());
+        if (!$token ) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -63,11 +65,23 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
-        if (! $token = auth()->attempt($request->only('email', 'password')) ) {
+        if (! $token = JWTAuth::attempt($request->only('email', 'password')) ) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
     /**

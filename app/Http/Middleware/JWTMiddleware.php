@@ -6,17 +6,17 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
-class JWTMiddleware
+class JWTMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         try{
             $user = JWTAuth::parseToken()->authenticate();
@@ -32,5 +32,10 @@ class JWTMiddleware
                 return response()->json(['status' => 'Authorization Token not found']);
             }
         }
+        $response = $next($request);
+
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN', false);
+        //return $next($request);
+        return $response;
     }
 }

@@ -10,9 +10,18 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from "./router/routes";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import store from './store/index';
+import Popper from "vue3-popper";
 
 // Import components
 // import App from './components/App.vue';
+
+// axios.defaults.withCredentials = true
+// axios.defaults.baseURL = 'http://localhost:8020/api/'
+// const token = localStorage.getItem('token')
+// if (token) {
+//     axios.defaults.headers.common['Authorization'] = token
+// }
 
 const router = createRouter({
     routes,
@@ -21,6 +30,35 @@ const router = createRouter({
         // Always scroll to top
         return { top: 0 }
     },
+});
+
+// middleware
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+            next();
+            return;
+        }
+        next("/login");
+    }
+    else {
+        next();
+    }
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.guest)) {
+        if (store.getters.isLoggedIn) {
+            console.log("inner if");
+            next("/movies");
+            return;
+        }
+        console.log("outer if");
+        next();
+    }
+    else {
+        next();
+    }
 });
 
 const Toast = Swal.mixin({
@@ -44,7 +82,9 @@ const Toast = Swal.mixin({
 
 // const app = createApp({});
 const app = createApp({});
-app.use(router, axios);
+app.use(router, axios, store);
+
+// app.component("Popper", Popper);
 
 /**
  * The following block of code may be used to automatically register your

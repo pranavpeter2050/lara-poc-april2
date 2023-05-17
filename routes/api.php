@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,17 @@ use App\Http\Controllers\MovieController;
 
 // Route::apiResource('/movies', MovieController::class);
 
-Route::post('login', 'AuthController@login');
-Route::post('register', 'AuthController@register');
+// Route::post('login', 'AuthController@login');
+// Route::post('logout', 'AuthController@logout');
+// Route::post('register', 'AuthController@register');
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => 'jwt.verify',], function () {
 
-    Route::get('getuser', 'AuthController@getuser');
+    // Route::get('getuser', 'AuthController@getuser');
+    Route::post('getuser', [AuthController::class, 'getuser']);
     Route::apiResource('/movies', MovieController::class);
 
 });
