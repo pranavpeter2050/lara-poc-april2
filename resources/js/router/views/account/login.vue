@@ -1,4 +1,6 @@
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   data() {
@@ -11,10 +13,34 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["login"]),
+
+    /* loginSubmit() {
+      this.$store.dispatch('login', this.form)
+      .then(() => this.$router.push('/movies'))
+      .catch(err => {console.log(err)})
+    } */
     loginSubmit() {
-      axios.get('/sanctum/csrf-cookie').then(response => {
-        console.log(response)
-      });
+      axios.post("/api/login", this.form, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then(resp => {
+        console.log(resp.data)
+          const token = resp.data.access_token
+          const user = resp.data.user
+          localStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = token
+          console.log("user: ", user);
+          // this.$router.push('/movies')
+          window.location.href='/movies'
+      })
+      .catch(err => {
+          localStorage.removeItem('token')
+          console.log(err);
+      })
     }
 
   }
@@ -40,10 +66,10 @@ export default {
 
                                       <div class="text-center w-75 m-auto">
                                               <h4 class="text-dark-50 text-center pb-0 fw-bold">Sign In</h4>
-                                              <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
+                                              <p class="text-muted mb-4">Enter your email address and password.</p>
                                       </div>
 
-                                      <form action="#" @submit.prevent="loginSubmit">
+                                      <form action="#" @submit.prevent="loginSubmit()">
 
                                               <div class="mb-3">
                                                       <label for="emailaddress" class="form-label">Email address</label>
@@ -51,7 +77,7 @@ export default {
                                               </div>
 
                                               <div class="mb-3">
-                                                      <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a>
+                                                      <!-- <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a> -->
                                                       <label for="password" class="form-label">Password</label>
                                                       <div class="input-group input-group-merge">
                                                               <input v-model="form.password" type="password" id="password" class="form-control" placeholder="Enter your password">

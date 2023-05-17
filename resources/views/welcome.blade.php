@@ -37,7 +37,6 @@
             <router-view></router-view>
         </div>
 
-        @vite('resources/js/app.js')
         <!-- Vendor js -->
         <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
 
@@ -49,5 +48,7 @@
         <script src="{{ asset('assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+
+        @vite('resources/js/app.js')
     </body>
 </html>

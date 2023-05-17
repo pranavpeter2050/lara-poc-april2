@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       title: "Index",
+      token: localStorage.getItem("token"),
       isWriteAllowed: true,
       moviesList: []
     };
@@ -24,6 +25,7 @@ export default {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            Authorization: "Bearer " + this.token,
           },
         })
         .then((response) => {
@@ -46,6 +48,7 @@ export default {
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                Authorization: "Bearer " + this.token,
               },
             })
             .then((response) => {

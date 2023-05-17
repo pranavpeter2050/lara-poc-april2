@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       title: "Add Movie",
+      token: localStorage.getItem("token"),
       editmode: false,
       isActive: true,
       submitted: false,
@@ -65,6 +66,7 @@ export default {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            Authorization: "Bearer " + this.token,
           },
         })
         .then((response) => {
@@ -103,6 +105,7 @@ export default {
           headers: {
             "Content-Type": "multipart/form-data",
             Accept: "application/json",
+            Authorization: "Bearer " + this.token,
           },
         })
         .then(response => {
@@ -134,6 +137,7 @@ export default {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            Authorization: "Bearer " + this.token,
           },
         })
         .then(response => {

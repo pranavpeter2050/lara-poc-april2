@@ -1,19 +1,40 @@
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     return {
       form: {
         name: "",
         email: "",
         password: "",
-        confirm_password: ""
+        password_confirmation: ""
       },
       showError: false
     };
   },
   methods: {
-
+    registerSubmit() {
+      axios.post("/api/register", this.form, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then(resp => {
+        console.log(resp.data)
+          const token = resp.data.access_token
+          const user = resp.data.user
+          localStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = token
+          console.log("user: ", user);
+          // this.$router.push('/movies')
+          window.location.href='/movies'
+      })
+      .catch(err => {
+          localStorage.removeItem('token')
+          console.log(err);
+      })
+    }
   }
 }
 </script>
@@ -33,9 +54,8 @@ export default {
               </div>
 
               <div class="card-body p-4">
-                <div class="text-center w-75 m-auto">
-                  <h4 class="text-dark-50 text-center mt-0 fw-bold">Free Sign Up</h4>
-                  <p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute </p>
+                <div class="text-center w-75 m-auto mb-4">
+                  <h4 class="text-dark-50 text-center mt-0 fw-bold">Register</h4>
                 </div>
 
                 <form action="#" @submit.prevent="registerSubmit">
@@ -62,7 +82,7 @@ export default {
                   <div class="mb-3">
                     <label for="password_confirm" class="form-label">Confirm Password</label>
                     <div class="input-group input-group-merge">
-                      <input v-model="form.confirm_password" type="password" id="password_confirm" class="form-control" placeholder="Enter your password">
+                      <input v-model="form.password_confirmation" type="password" id="password_confirm" class="form-control" placeholder="Enter your password">
                     </div>
                   </div>
 
