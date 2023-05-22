@@ -4,6 +4,81 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 </p>
 
+## Installing Vue
+
+After setting up a Laravel project as required, we need to pair it with Vue. Open a terminal inside your current Laravel project and run the below command to install Vue.
+
+```bash
+npm install vue@latest vue-loader@latest vue-router
+```
+
+By default, Laravel 10 should be installed with **Vite** as the bundler **Webpack**. If your project folder contains a **vite.config.js** file then it is using **Vite**. If you have a **webpack.mix.js** then it uses **Webpack**
+
+### Setup Vue with Vite
+
+- Inside your `resource/js/app.js` file, add the below code to import the necessary dependencies to setup a Vue.js application and mount it to a specified element on a HTML page.
+
+```javascript
+// Import the createApp function from the Vue library. This function is used to create a new Vue instance.
+import { createApp } from 'vue';
+
+// Imports the "main" Vue component of the application as "app".
+import app from './layouts/main.vue'
+
+// Creates a new Vue instance using the createApp function and mounts it to the #app element which will be defined in welcome.blade.php
+createApp(app).mount("#app")
+```
+
+- Define the HTML element where the Vue app will be mounted as shown below. In this case, `resources/views/welcome.blade.php`.
+
+```html
+// welcome.blade.php
+// Remove the existing code inside the <body> tag
+...
+<body class="antialiased">
+    <div id="app"></div>
+
+    @vite('resources/js/app.js')
+</body>
+```
+
+- Created a folder called `layouts`. Inside this new folder, create a vue file, lets name this `main.vue`. Fill it with the following code.
+
+```javascript
+<template>
+  <div>
+    <h1>
+      Hello, Entry point here!
+    </h1>
+  </div>
+</template>
+```
+
+- Now, we'll need to `@vitejs/plugin-vue` npm package to enable Vite to handle Vue components (.vue files) by transforming them into JavaScript modules that can be loaded by the browser. Run below command to install it.
+
+```bash
+npm i @vitejs/plugin-vue
+```
+
+- Add the folling lines to `vite.config.js` to import the above plugin.
+
+```javascript
+// vite.config.js
+import vue from '@vitejs/plugin-vue'
+
+export default {
+  plugins: [vue()],
+}
+```
+
+- Now run `npm run dev` to start the Vite server / frontend and `php artisan serve` start the Laravel server / backend in separate terminal inside your project path.
+- By default, Laravel starts at `port 8000` unless we define some other port in the `.env` file. Try opening the URL: <http://127.0.0.1:8000/>
+
+#### References
+
+- [Install Vue 3 In Laravel 9 With Vite | Laravel Vite With Vue 3 | Vite Laravel Vue 3 | #1 HINDI](https://www.youtube.com/watch?v=8_ptB59jcWM&t=2s), it's in Hindi, will update link to English version if it exists.
+- [@vitejs/plugin-vue](https://www.npmjs.com/package/@vitejs/plugin-vue)
+
 ## Authenticating using JWT-Auth composer package
 
 Run command to install the package:
