@@ -37,7 +37,10 @@ class AuthController extends Controller
 
         $token = JWTAuth::attempt($validator->validated());
         if (!$token ) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'error' => 'Unauthorized'
+            ], 401);
         }
 
         return $this->respondWithToken($token);
@@ -57,7 +60,11 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->toJson()], 400);
+            // return response()->json(['error' => $validator->errors()->toJson()], 400);
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()
+            ], 400);
         }
 
         $user = User::create(array_merge(
@@ -66,7 +73,10 @@ class AuthController extends Controller
         ));
 
         if (! $token = JWTAuth::attempt($request->only('email', 'password')) ) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'error' => 'Unauthorized'
+            ], 401);
         }
 
         return $this->respondWithToken($token);

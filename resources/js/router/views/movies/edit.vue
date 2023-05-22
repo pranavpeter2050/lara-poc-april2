@@ -34,13 +34,13 @@ export default {
   validations: {
     movieData: {
       name: {
-        required: helpers.withMessage("Name is required", required),
+        required: helpers.withMessage("Name is required.", required),
       },
       studio: {
-        required: helpers.withMessage("Name of Production Studio is required", required),
+        required: helpers.withMessage("Name of Production Studio is required.", required),
       },
       year_of_release: {
-        required: helpers.withMessage("Release Date is required", required),
+        required: helpers.withMessage("Release Date is required.", required),
       },
     },
   },

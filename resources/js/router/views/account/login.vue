@@ -1,26 +1,52 @@
 <script>
 import { mapActions } from 'vuex'
+import useVuelidate from '@vuelidate/core'
+import {
+  required,
+  email,
+  helpers
+} from '@vuelidate/validators'
 
 export default {
   name: 'Login',
+  setup () {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
       form: {
         email: "",
         password: ""
       },
-      showError: false
+      errors:{},
+      submitted: false,
+      showPassword: false,
     };
+  },
+  validations: {
+    form: {
+      email: {
+        required: helpers.withMessage('Email is required.', required),
+        email: helpers.withMessage('Email is invalid.', email),
+      },
+      password: {
+        required: helpers.withMessage('Password is required.', required),
+      },
+    },
   },
   methods: {
     ...mapActions(["login"]),
 
-    /* loginSubmit() {
-      this.$store.dispatch('login', this.form)
-      .then(() => this.$router.push('/movies'))
-      .catch(err => {console.log(err)})
-    } */
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     loginSubmit() {
+      this.submitted = true;
+      // stop here if form is invalid
+      this.v$.$touch();
+      if (this.v$.$invalid) {
+        return;
+      }
       axios.post("/api/login", this.form, {
         headers: {
           "Content-Type": "application/json",
@@ -32,14 +58,25 @@ export default {
           const token = resp.data.access_token
           const user = resp.data.user
           localStorage.setItem('token', token)
+          localStorage.setItem('uid', user.id)
+          localStorage.setItem('uname', user.name)
           axios.defaults.headers.common['Authorization'] = token
           console.log("user: ", user);
           // this.$router.push('/movies')
           window.location.href='/movies'
       })
       .catch(err => {
+          let error_msg = "";
           localStorage.removeItem('token')
-          console.log(err);
+          console.log(err.response.data);
+          if(err.response.data.success === false) {
+            error_msg = "Email/Password is incorrect."
+            this.errors = {
+              email: error_msg
+            }
+          } else {
+            this.errors = {}
+          }
       })
     }
 
@@ -73,17 +110,40 @@ export default {
 
                                               <div class="mb-3">
                                                       <label for="emailaddress" class="form-label">Email address</label>
-                                                      <input v-model="form.email" class="form-control" type="email" id="emailaddress" required placeholder="Enter your email">
+                                                      <input
+                                                        v-model="form.email"
+                                                        id="emailaddress"
+                                                        class="form-control"
+                                                        :class="{ 'is-invalid': submitted && v$.form.email.$error }"
+                                                        placeholder="Enter your email"
+                                                        type="email"
+                                                        required
+                                                      >
+                                                      <div class="invalid-feedback" v-for="(error, index) of v$.form.email.$errors" :key="index" autocomplete="off">
+                                                          <div class="error-msg">{{  error.$message }}</div>
+                                                      </div>
+                                                      <p class="text-danger" v-text="errors.email"></p>
                                               </div>
 
                                               <div class="mb-3">
                                                       <!-- <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a> -->
                                                       <label for="password" class="form-label">Password</label>
                                                       <div class="input-group input-group-merge">
-                                                              <input v-model="form.password" type="password" id="password" class="form-control" placeholder="Enter your password">
-                                                              <div class="input-group-text" data-password="false">
+                                                              <input
+                                                                v-model="form.password"
+                                                                id="password"
+                                                                class="form-control"
+                                                                :class="{ 'is-invalid': submitted && v$.form.password.$error }"
+                                                                placeholder="Enter your password"
+                                                                :type="showPassword ? 'text' : 'password'"
+                                                              >
+                                                              <div class="input-group-text" :class="{ 'show-password': showPassword  }" :data-password="showPassword" @click="toggleShow">
                                                                       <span class="password-eye"></span>
                                                               </div>
+                                                              <div class="invalid-feedback" v-for="(error, index) of v$.form.password.$errors" :key="index" autocomplete="off">
+                                                                  <div class="error-msg">{{  error.$message }}</div>
+                                                              </div>
+                                                              <p class="text-danger" v-text="errors.password"></p>
                                                       </div>
                                               </div>
 
