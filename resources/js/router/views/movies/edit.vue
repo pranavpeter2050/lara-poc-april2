@@ -60,6 +60,20 @@ export default {
     }
   },
   methods: {
+    convertDateFormat(str)
+    {
+      if(str)
+      {
+        var date = new Date(str);
+        const tzOffset = date.getTimezoneOffset() * 60 * 1000;
+        return new Date(date - tzOffset).toISOString().split('T')[0]
+
+      }
+      else{
+        return "";
+      }
+
+    },
     fetchMovieDetails(movieId) {
       axios
         .get("/api/movies/" + movieId, {
@@ -91,6 +105,7 @@ export default {
       this.submitted = true;
       this.movieDataForm.append("name", this.movieData.name);
       this.movieDataForm.append("studio", this.movieData.studio);
+      this.movieData.year_of_release = this.convertDateFormat(this.movieData.year_of_release)
       this.movieDataForm.append("yor", this.movieData.year_of_release);
 
       const result = await this.v$.$validate()
@@ -124,6 +139,7 @@ export default {
     async movieUpdate() {
       this.submitted = true;
       let payload = this.movieData
+      this.movieData.year_of_release = this.convertDateFormat(this.movieData.year_of_release)
       payload.yor = this.movieData.year_of_release
       const result = await this.v$.$validate()
       if (!result) {
@@ -216,14 +232,20 @@ export default {
                 </div>
                 <div class="mb-3">
                   <label for="yor" class="form-label">Year of Release</label>
-                  <input
+                  <!-- <input
                     v-model="movieData.year_of_release"
                     id="yor"
                     class="form-control"
                     :class="{ 'is-invalid': submitted && v$.movieData.year_of_release.$error }"
                     placeholder="Year of Release"
                     type="date"
-                  >
+                  > -->
+                  <Datepicker
+                    v-model="movieData.year_of_release"
+                    format="dd-MM-yyyy"
+                    autoApply
+                    :enableTimePicker="false"
+                  ></Datepicker>
                   <div
                     class="invalid-feedback"
                     v-for="(error, index) of v$.movieData.year_of_release.$errors"

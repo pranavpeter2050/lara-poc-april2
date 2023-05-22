@@ -159,3 +159,4 @@ Install Vuex by running `npm install vuex`,
 - [SweetAlert2](https://sweetalert2.github.io/)
 - [Vue-SweetAlert2](https://github.com/avil13/vue-sweetalert2)
 - [Vuelidate for Vue 3](https://vuelidate-next.netlify.app/#installation)
+- [Vue 3 DatePicker](https://vue3datepicker.com/installation/)

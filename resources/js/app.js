@@ -12,9 +12,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import store from './store/index';
 import Popper from "vue3-popper";
-
-// Import components
-// import App from './components/App.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 // axios.defaults.withCredentials = true
 // axios.defaults.baseURL = 'http://localhost:8020/api/'
@@ -53,7 +52,6 @@ router.beforeEach((to, from, next) => {
             next("/movies");
             return;
         }
-        console.log("outer if");
         next();
     }
     else {
@@ -84,25 +82,8 @@ const Toast = Swal.mixin({
 const app = createApp({});
 app.use(router, axios, store);
 
-// app.component("Popper", Popper);
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
+app.component("Popper", Popper);
+app.component("Datepicker", Datepicker);
 
 // app.mount('#app');
 window.vm = app.mount("#app");
