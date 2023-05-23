@@ -15,8 +15,7 @@ class MovieController extends Controller
     */
     public function index()
     {
-        $movies = Movies::orderBy('id','asc')->paginate(15);
-        return response()->json($movies);
+        return Movies::listMovies();
     }
 
     /**
@@ -27,15 +26,7 @@ class MovieController extends Controller
     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'studio' => 'required',
-            'yor' => 'required',
-        ]);
-
-        Movies::insertMovie($request);
-
-        return response()->json('Movie added to database!');
+        return Movies::insertMovie($request);;
     }
 
     /**
@@ -46,9 +37,7 @@ class MovieController extends Controller
     */
     public function show($id)
     {
-        $movie = Movies::fetchMovie($id);
-
-        return $movie;
+        return Movies::fetchMovie($id);
     }
 
     /**
@@ -60,15 +49,7 @@ class MovieController extends Controller
     */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'studio' => 'required',
-            'yor' => 'required',
-        ]);
-
-        Movies::updateMovie($request, $id);
-
-        return response()->json('Movie updated in database!');
+        return Movies::updateMovie($request, $id);
     }
 
     /**
@@ -79,8 +60,6 @@ class MovieController extends Controller
     */
     public function destroy($id)
     {
-        Movies::deleteMovie($id);
-
-        return response()->json('Movie deleted from database!');
+        return Movies::deleteMovie($id);
     }
 }
