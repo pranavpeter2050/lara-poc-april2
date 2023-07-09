@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Movies Index</title>
+        <title>Movies Index 2</title>
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
         <!-- <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -27,28 +27,15 @@
         <!-- App css -->
         <link href="{{ asset('assets/css/app-modern.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
-        <!-- Datatables css -->
-        <link href="{{ asset('assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-
     </head>
     <body>
-        <div id="app">
-            <router-view></router-view>
-        </div>
+        <div id="app"></div>
 
+        @vite('resources/js/app.js')
         <!-- Vendor js -->
         <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
 
         <!-- App js -->
         <script src="{{ asset('assets/js/app.min.js') }}"></script>
-
-        <!-- Datatables js -->
-        <script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-
-        @vite('resources/js/app.js')
     </body>
 </html>

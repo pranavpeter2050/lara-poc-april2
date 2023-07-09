@@ -1,8 +1,6 @@
 <script>
 import Layout from "../../../components/App.vue";
 import moment from 'moment';
-import { useVuelidate } from '@vuelidate/core';
-import { required, helpers } from '@vuelidate/validators';
 export default {
   page: {
     title: "Add Movie",
@@ -10,16 +8,11 @@ export default {
   components: {
     Layout,
   },
-  setup () {
-    return { v$: useVuelidate() }
-  },
   data() {
     return {
       title: "Add Movie",
-      token: localStorage.getItem("token"),
       editmode: false,
       isActive: true,
-      submitted: false,
       id: this.$route.params.id,
       movieId: null,
       movieDataForm: new FormData(),
@@ -27,22 +20,8 @@ export default {
         name: "",
         studio: "",
         year_of_release: ""
-      },
-      errors: [],
+      }
     };
-  },
-  validations: {
-    movieData: {
-      name: {
-        required: helpers.withMessage("Name is required.", required),
-      },
-      studio: {
-        required: helpers.withMessage("Name of Production Studio is required.", required),
-      },
-      year_of_release: {
-        required: helpers.withMessage("Release Date is required.", required),
-      },
-    },
   },
   mounted() {
     // console.log("$route-param-id: ", this.$route.params.id)
@@ -60,27 +39,12 @@ export default {
     }
   },
   methods: {
-    convertDateFormat(str)
-    {
-      if(str)
-      {
-        var date = new Date(str);
-        const tzOffset = date.getTimezoneOffset() * 60 * 1000;
-        return new Date(date - tzOffset).toISOString().split('T')[0]
-
-      }
-      else{
-        return "";
-      }
-
-    },
     fetchMovieDetails(movieId) {
       axios
         .get("/api/movies/" + movieId, {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: "Bearer " + this.token,
           },
         })
         .then((response) => {
@@ -101,26 +65,17 @@ export default {
           console.error(error);
         });
     },
-    async movieInsert() {
-      this.submitted = true;
+    movieInsert() {
       this.movieDataForm.append("name", this.movieData.name);
       this.movieDataForm.append("studio", this.movieData.studio);
-      this.movieData.year_of_release = this.convertDateFormat(this.movieData.year_of_release)
       this.movieDataForm.append("yor", this.movieData.year_of_release);
 
-      const result = await this.v$.$validate()
-      if (!result) {
-        // notify form is invalid
-        return;
-      }
       this.isActive = false;
-      this.submitted = false;
       axios
         .post("/api/movies", this.movieDataForm, {
           headers: {
             "Content-Type": "multipart/form-data",
             Accept: "application/json",
-            Authorization: "Bearer " + this.token,
           },
         })
         .then(response => {
@@ -136,24 +91,16 @@ export default {
           console.error(error);
         });
     },
-    async movieUpdate() {
-      this.submitted = true;
+    movieUpdate() {
       let payload = this.movieData
-      this.movieData.year_of_release = this.convertDateFormat(this.movieData.year_of_release)
       payload.yor = this.movieData.year_of_release
-      const result = await this.v$.$validate()
-      if (!result) {
-        // notify form is invalid
-        return;
-      }
+
       this.isActive = false;
-      this.submitted = false;
       axios
         .patch("/api/movies/" + this.movieId, JSON.stringify(payload), {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: "Bearer " + this.token,
           },
         })
         .then(response => {
@@ -196,19 +143,9 @@ export default {
                     v-model="movieData.name"
                     id="movieName"
                     class="form-control"
-                    :class="{ 'is-invalid': submitted && v$.movieData.name.$error }"
                     placeholder="Movie name"
                     type="text"
                   >
-                  <div
-                    class="invalid-feedback"
-                    v-for="(error, index) of v$.movieData.name.$errors"
-                    :key="index"
-                    autocomplete="off">
-                    <div class="error-msg">
-                      {{ error.$message }}
-                    </div>
-                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="prodStudio" class="form-label">Production Studio</label>
@@ -216,38 +153,19 @@ export default {
                     v-model="movieData.studio"
                     id="prodStudio"
                     class="form-control"
-                    :class="{ 'is-invalid': submitted && v$.movieData.studio.$error }"
                     placeholder="Production Studio"
                     type="text"
                   >
-                  <div
-                    class="invalid-feedback"
-                    v-for="(error, index) of v$.movieData.studio.$errors"
-                    :key="index"
-                    autocomplete="off">
-                    <div class="error-msg">
-                      {{ error.$message }}
-                    </div>
-                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="yor" class="form-label">Year of Release</label>
-                  <Datepicker
-                    :class="{ 'is-invalid': submitted && v$.movieData.year_of_release.$error }"
+                  <input
                     v-model="movieData.year_of_release"
-                    format="dd-MM-yyyy"
-                    autoApply
-                    :enableTimePicker="false"
-                  ></Datepicker>
-                  <div
-                    class="invalid-feedback"
-                    v-for="(error, index) of v$.movieData.year_of_release.$errors"
-                    :key="index"
-                    autocomplete="off">
-                    <div class="error-msg">
-                      {{ error.$message }}
-                    </div>
-                  </div>
+                    id="yor"
+                    class="form-control"
+                    placeholder="Year of Release"
+                    type="date"
+                  >
                 </div>
                 <div class="bttn-wrappr">
                   <button
