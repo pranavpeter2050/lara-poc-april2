@@ -62,7 +62,7 @@ export default {
           localStorage.setItem('uname', user.name)
           axios.defaults.headers.common['Authorization'] = token
           console.log("user: ", user);
-          // this.$router.push('/movies')
+        //   this.$router.push({ path: "/movies" })
           window.location.href='/movies'
       })
       .catch(err => {
